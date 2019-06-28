@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-warning alert-dismissable" role="alert">
+          <button class="close" data-dismiss="alert">
+              <small><sup>x</sup></small>
+          </button>
+          {{ message}}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  {% if all_items %}
+    {% for recipe in all_items %}
+    <a class="float-right"
+        style="color: black; display: bold; margin-bottom: -25px;"
+        href="{% url 'delete' recipe.id %}">X</a>
+    <table class="table table-borderless"
+            style="background-color: #F6F9F1; border-radius: 5px;">
+      <tr class="d-flex">
+        <th class="col-12" style="margin-top: 20px;">
+          <center><h2>{{ recipe.name }}</h2><center>
+        </th>
+      </tr>
+      <th>
+        <h4>Ingredients: </h4>
+        <form action="/update/{{recipe.id}}" method="post">{% csrf_token %}
+          <div class="input-group" style="margin-bottom: 10px;">
+            <input type="text" class="form-control token-example-field"
+                  name= "update" value="{{recipe.content}}" />
+            <button type="submit"
+                    class="btn btn-sm btn-info">Update</button>
+          </div>
+        </form>
+      </th>
+    </table>
+    {% endfor %}
+  {% endif %}
+
+{% endblock %}

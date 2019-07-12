@@ -28,3 +28,5 @@ def update(request, ingredient_id):
     obj.save()
     messages.success(request, (name + ' Ingredients Have Been Updated!'))
     return redirect('index')
+
+# 
